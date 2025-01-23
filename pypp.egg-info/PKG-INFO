@@ -1,0 +1,46 @@
+Metadata-Version: 2.2
+Name: pypp
+Version: 0.1.0
+Summary: A simple preprocessor for Python files
+Home-page: https://github.com/gizmore/pypp
+Author: gizmore
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-python
+Dynamic: summary
+
+# pypp
+Python PreProcessor. Annotate python code with various #comments like #PYPP#DELETE#.
+
+This allows to remove certain lines of code in production deployments,
+to squeeze out performance.
+
+## Usage
+
+`python -m pypp --recursive files or dirs`
+
+## Directives
+
+Only 3 directives are implemented:
+
+ - `#PYPP#DELETE#` deletes the line this comment appears in.
+ - `#PYPP#BEGIN#` starts a deletion block.
+ - `#PYPP#END#` ends a deletion block.
+
+No sanity checks!
+
+### LICENSE
+
+[MIT](./LICENSE)
+
+(c)2024 gizmore@wechall.net + chappy
