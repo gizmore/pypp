@@ -6,7 +6,7 @@ setup(
     packages=find_packages(),
     install_requires=[],
     entry_points={
-        "console_scripts": ["pypp=pypp.py:main"]
+        "console_scripts": ["pypp=pypp.pypp:main"]
     },
     author="gizmore",
     long_description=open("README.md").read(),
