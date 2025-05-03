@@ -13,25 +13,28 @@ class PyPP:
         temp_fd, temp_path = tempfile.mkstemp()
 
         try:
-            with open(filepath, "r") as src, os.fdopen(temp_fd, "w") as dst:
+            with open(filepath, "r", encoding='utf-8') as src, os.fdopen(temp_fd, "w") as dst:
                 for line in src:
                     if "#PYPP#DELETE#" in line:
                         modified = True
                         if verbose:
                             print(line)
                         continue
-                    if "#PYPP#BEGIN#" in line:
+                    elif "#PYPP#START#" in line:
                         self.in_delete_block = True
                         modified = True
                         if verbose:
                             print(line)
                         continue
-                    if "#PYPP#END#" in line:
+                    elif "#PYPP#END#" in line:
                         self.in_delete_block = False
                         modified = True
                         if verbose:
                             print(line)
                         continue
+                    elif "#PYPP#" in line:
+                        print(f"Warning: unknown PYPP command in {line}")
+
                     if not self.in_delete_block:
                         dst.write(line)  # Write line only if not in delete mode
                     elif verbose:
@@ -49,7 +52,7 @@ class PyPP:
             os.remove(temp_path)
             print(f"Error processing {filepath}: {e}")
 
-    def preprocess_path(self, path: str, recursive: bool = False, verbose: bool = True):
+    def preprocess_path(self, path: str, recursive: bool = False, verbose: bool = False):
         if os.path.isdir(path):
             for root, _, files in os.walk(path):
                 for file in files:
